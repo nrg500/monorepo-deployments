@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dinner-planner
+  labels:
+    app: dinner-planner
+spec:
+  type: NodePort
+  selector:
+    app: dinner-planner
+  ports:
+  - port: 8080
+    targetPort: 80
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: dinner-planner-deployment
+    labels:
+        app: dinner-planner
+spec:
+    selector:
+        matchLabels:
+            app: dinner-planner
+    template:
+        metadata:
+            labels:
+                app: dinner-planner
+        spec:
+            containers:
+            - name: dinner-planner
+              image: berwoutv/dinner-planner
+              ports:
+              - containerPort: 80
+              readinessProbe:
+                httpGet:
+                    path: /
+                    port: 80
+                initialDelaySeconds: 5
+                periodSeconds: 5
