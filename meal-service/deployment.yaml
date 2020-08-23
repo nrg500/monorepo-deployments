@@ -31,9 +31,6 @@ spec:
             - name: meal-service
               image: berwoutv/meal-service:latest
               imagePullPolicy: Always
-              env:
-              - name: MONGO_URI
-                value: ${MONGO_URI}
               ports:
               - containerPort: 80
               readinessProbe:
