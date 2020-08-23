@@ -52,7 +52,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: (Host(`berwout.nl`) || Host(`www.berwout.nl`)) && Path('/api/meals')
+  - match: (Host(`berwout.nl`) || Host(`www.berwout.nl`)) && Path(`/api/meals`)
     kind: Rule
     services:
     - name: meal-service
