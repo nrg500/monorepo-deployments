@@ -29,7 +29,11 @@ spec:
         spec:
             containers:
             - name: ingredient-service
-              image: berwoutv/ingredient-service
+              imagePullPolicy: Always
+              image: berwoutv/ingredient-service:latest
+              env:
+              - name: MONGO_URI
+                value: ${MONGO_URI}
               ports:
               - containerPort: 80
               readinessProbe:
@@ -38,3 +42,20 @@ spec:
                     port: 80
                 initialDelaySeconds: 5
                 periodSeconds: 5
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingredient-service-tls
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: (Host(`berwout.nl`) || Host(`www.berwout.nl`)) && Path(`/api/ingredients`)
+    kind: Rule
+    services:
+    - name: ingredient-service
+      port: 8082
+  tls:
+    certResolver: myresolver
