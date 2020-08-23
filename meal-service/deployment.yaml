@@ -46,7 +46,7 @@ spec:
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
-  name: dinner-planner-tls
+  name: meal-service-tls
   namespace: default
 spec:
   entryPoints:
