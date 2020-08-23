@@ -38,3 +38,21 @@ spec:
                     port: 80
                 initialDelaySeconds: 5
                 periodSeconds: 5
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: blog-tls
+  namespace: default
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: (Host(`berwout.nl`) || Host(`www.berwout.nl`)) && Path(`/blog`)
+    kind: Rule
+    services:
+    - name: blog-service
+      port: 8080
+  tls:
+    certResolver: myresolver
+

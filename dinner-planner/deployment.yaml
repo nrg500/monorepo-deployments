@@ -9,7 +9,7 @@ spec:
   selector:
     app: dinner-planner
   ports:
-  - port: 8080
+  - port: 8081
     targetPort: 80
 ---
 apiVersion: apps/v1
@@ -51,8 +51,11 @@ spec:
   routes:
   - match: Host(`berwout.nl`) || Host(`www.berwout.nl`)
     kind: Rule
+    middlewares:
+    - name: redirect-scheme
+      namespace: default
     services:
     - name: dinner-planner
-      port: 8080
+      port: 8081
   tls:
     certResolver: myresolver

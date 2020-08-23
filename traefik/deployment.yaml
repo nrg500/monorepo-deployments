@@ -228,3 +228,13 @@ spec:
               containerPort: 4443
             - name: admin
               containerPort: 8080
+---
+# Redirect to https
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: redirect-scheme
+spec:
+  redirectScheme:
+    scheme: https
+    permanent: true
