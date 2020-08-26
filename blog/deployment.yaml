@@ -48,7 +48,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-  - match: (Host(`berwout.nl`) || Host(`www.berwout.nl`)) && Path(`/blog`)
+  - match: Host(`blog.berwout.nl`
     kind: Rule
     services:
     - name: blog-service
